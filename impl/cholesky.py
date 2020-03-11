@@ -28,4 +28,4 @@ def cholesky_decomposition(M, d_type=np.float64):
             else:
                 L[i][j] = d_type(1 / L[j][j] * (M[i][j] - _sum))
 
-    return L
+    return d_type(L)

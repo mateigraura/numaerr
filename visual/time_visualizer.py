@@ -6,10 +6,11 @@ import os
 
 
 class TimeVisualizer(BaseVisualizer):
-    def __init__(self, funcs, data, labels):
+    def __init__(self, funcs, data, labels, iterations):
         self.funcs = []
         self.data = data
         self.labels = labels
+        self.iterations = iterations
         for idx, func in enumerate(funcs):
             self.funcs.append(func)
 
@@ -24,7 +25,7 @@ class TimeVisualizer(BaseVisualizer):
 
     def _timeit(self, idx):
         t = []
-        for _ in range(4000):
+        for _ in range(self.iterations):
             t0 = time.time()
             self.funcs[idx](self.data)
             t1 = time.time()

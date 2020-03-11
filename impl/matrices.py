@@ -24,3 +24,7 @@ def positive_definite_matrix(size=3, alpha=1.0):
     M = random.rand(size, size)
     I = np.dot(np.identity(size), alpha)
     return np.dot(M, M.T) + I
+
+
+def rand_matrix(size=3):
+    return random.rand(size, size)

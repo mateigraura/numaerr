@@ -16,38 +16,35 @@ class MatrixVisualizer(BaseVisualizer):
             else plt.get_cmap(map_type)
 
     def show(self, rows=1, cols=1):
-        cols = len(self.inputs) if cols is 1 else cols
         _, axes = plt.subplots(nrows=rows,
                                ncols=cols,
                                figsize=self.fig_size)
 
         if rows > 1:
             self._show_many_rows(axes)
+        elif rows and cols is 1:
+            self._show_figure(axes, self.inputs, self.labels)
         else:
             self._show_one_row(axes)
         super().set_window()
 
     def _show_one_row(self, axes):
         for idx, ax in enumerate(axes):
-            self._show_figure(idx, ax)
+            self._show_figure(ax,
+                              self.inputs[idx],
+                              self.labels[idx])
 
     def _show_many_rows(self, axes):
         for idx, ax in enumerate(axes):
             for sub_idx, sub_ax in enumerate(ax):
-                self._show_nested_figure(idx, sub_idx, sub_ax)
+                self._show_figure(sub_ax,
+                                  self.inputs[idx][sub_idx],
+                                  self.labels[idx][sub_idx])
 
-    def _show_figure(self, idx, ax):
-        ax.imshow(self.inputs[idx],
+    def _show_figure(self, ax, data, label):
+        ax.imshow(data,
                   interpolation=self.strategy,
                   cmap=self.map_type)
-        ax.set_title(self.labels[idx])
-        ax.set_xlabel("Columns")
-        ax.set_ylabel("Rows")
-
-    def _show_nested_figure(self, idx, sub_idx, ax):
-        ax.imshow(self.inputs[idx][sub_idx],
-                  interpolation=self.strategy,
-                  cmap=self.map_type)
-        ax.set_title(self.labels[idx][sub_idx])
+        ax.set_title(label, fontsize=14)
         ax.set_xlabel("Columns")
         ax.set_ylabel("Rows")
