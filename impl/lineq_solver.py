@@ -1,4 +1,3 @@
-from scipy.linalg import cho_solve, cho_factor, solve_triangular
 from impl.cholesky import cholesky_decomposition
 from copy import deepcopy
 import numpy as np
